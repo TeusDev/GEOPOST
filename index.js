@@ -203,10 +203,10 @@ function md1(arena, run, pos) {
 		result = g1 == g2 ? penalty(arena[i][0], arena[i][1]) : g1 > g2 ? arena[i][0] : arena[i][1];
 
 		(g1 == g2
-			? result.gPenalty > result.gPenalty
+			? arena[i][0].gPenalty > arena[i][1].gPenalty
 				? r[run].children[1].children[i].children[0]
 				: r[run].children[1].children[i].children[2]
-			: result.goals > result.goals
+			: arena[i][0].goals > arena[i][1].goals
 			? r[run].children[1].children[i].children[0]
 			: r[run].children[1].children[i].children[2]
 		).classList.add('w');
@@ -217,10 +217,8 @@ function md1(arena, run, pos) {
 		}
 
 		if (i - jump < 0) {
-			console.log(i, '[if]Push to:', i, 'jump', jump);
 			survivors[i].push(result);
 		} else {
-			console.log(i, '[else]Push to:', i - jump, 'jump', jump);
 			survivors[i - jump].push(result);
 			if (i > 3) {
 				reset++;
@@ -268,7 +266,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 						finalists[scrn][subPos].Name.normalize('NFD')
 							.replace(/[\u0300-\u036f]/g, '')
 							.slice(0, 3);
-					console.log(run, pos, '||', scrn, subPos);
 				}
 			}
 		else {
@@ -317,7 +314,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		}
 	}
 
-	console.log('Source:', finalists);
+	console.log('====================\n', 'Source:', finalists);
 
 	let packet;
 

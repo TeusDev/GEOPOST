@@ -1,6 +1,13 @@
 * {
 	margin: 0;
 	padding: 0;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
 
 html {
@@ -86,6 +93,7 @@ nav .button {
 
 nav .button.hover {
 	background-color: #000;
+	cursor: pointer;
 	transition: 0.1s;
 }
 
@@ -94,6 +102,7 @@ nav .button.gActive {
 	color: #f0f6f6;
 	background-color: #662e9b;
 	transition: 0.3s;
+	cursor: initial;
 }
 
 .stlgroup {

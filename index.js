@@ -318,14 +318,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 	}
 
 	console.log('Source:', finalists);
-	console.log({
-		equipeA: finalists[0][0].Token,
-		equipeB: finalists[0][1].Token,
-		golsEquipeA: finalists[0][0].goals,
-		golsEquipeB: finalists[0][1].goals,
-		golsPenaltyTimeA: finalists[0][0].gPenalty,
-		golsPenaltyTimeB: finalists[0][1].gPenalty,
+
+	let packet;
+
+	console.log(
+		(packet = {
+			equipeA: finalists[0][0].Token,
+			equipeB: finalists[0][1].Token,
+			golsEquipeA: finalists[0][0].goals,
+			golsEquipeB: finalists[0][1].goals,
+			golsPenaltyTimeA: finalists[0][0].gPenalty,
+			golsPenaltyTimeB: finalists[0][1].gPenalty,
+		})
+	);
+
+	const response = await fetch((url = 'https://estagio.geopostenergy.com/WorldCup/InsertFinalResult'), {
+		method: 'POST',
+		body: JSON.stringify(packet),
+		headers: {
+			'git-user': 'TeusDev',
+			'Content-Type': 'application/json',
+		},
 	});
+	const data = await response.json();
+	console.log(data.Result);
 
 	nav = document.querySelectorAll('nav');
 
@@ -362,6 +378,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 			const idxof = stageControls.indexOf(x);
 			idxof == 0 ? auxbar.classList.add('visible') : auxbar.classList.remove('visible');
 			document.querySelectorAll('.stand')[idxof + (idxof == 0 ? 0 : 7)].classList.add('enable');
+		})
+	);
+	stageControls.map((x) =>
+		x.addEventListener('mouseover', () => {
+			x.classList.add('hover');
+		})
+	);
+	stageControls.map((x) =>
+		x.addEventListener('mouseout', () => {
+			x.classList.remove('hover');
 		})
 	);
 });
